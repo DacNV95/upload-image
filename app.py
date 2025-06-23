@@ -30,10 +30,7 @@ def upload():
     ext = os.path.splitext(file.filename)[1]
     filename = f"{uuid.uuid4().hex}{ext}"
 
-    # ✅ Log tạm để debug
-    print("R2_BUCKET:", R2_BUCKET)
-    print("Uploading file:", filename)
-
     s3.upload_fileobj(file, R2_BUCKET, filename, ExtraArgs={'ACL': 'public-read'})
-       url = f"{R2_ENDPOINT}/{filename}"
+
+    url = f"{R2_ENDPOINT}/{filename}"
     return jsonify({'url': url})
