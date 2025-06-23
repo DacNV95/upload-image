@@ -9,7 +9,7 @@ R2_ACCESS_KEY = os.getenv("R2_ACCESS_KEY")
 R2_SECRET_KEY = os.getenv("R2_SECRET_KEY")
 R2_ACCOUNT_ID = os.getenv("R2_ACCOUNT_ID")
 R2_BUCKET = os.getenv("R2_BUCKET")
-R2_ENDPOINT = f"https://{R2_BUCKET}.r2.dev/{filename}"
+R2_ENDPOINT = f"https://{R2_BUCKET}.r2.dev"
 
 s3 = boto3.client('s3',
     endpoint_url=R2_ENDPOINT,
@@ -35,5 +35,5 @@ def upload():
     print("Uploading file:", filename)
 
     s3.upload_fileobj(file, R2_BUCKET, filename, ExtraArgs={'ACL': 'public-read'})
-    url = f"https://{R2_BUCKET}.{R2_ACCOUNT_ID}.r2.cloudflarestorage.com/{filename}"
+       url = f"{R2_ENDPOINT}/{filename}"
     return jsonify({'url': url})
