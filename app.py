@@ -29,7 +29,7 @@ def upload():
     file = request.files['image']
     ext = os.path.splitext(file.filename)[1]
     filename = f"{uuid.uuid4().hex}{ext}"
-
+print("R2_BUCKET:", R2_BUCKET)
     s3.upload_fileobj(file, R2_BUCKET, filename, ExtraArgs={'ACL': 'public-read'})
     url = f"https://{R2_BUCKET}.{R2_ACCOUNT_ID}.r2.cloudflarestorage.com/{filename}"
     return jsonify({'url': url})
